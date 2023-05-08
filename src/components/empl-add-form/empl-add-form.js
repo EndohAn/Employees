@@ -1,47 +1,51 @@
 import './empl-add-form.css';
 import React, { useState } from 'react';
 
-const EmployeesAddForm = ({addEmpl,setAddEmpl}) => {
+const EmployeesAddForm = ({saveEmpl}) => {
 
-const[value,setValue]=useState('');
-const[money,setMoney] =useState();
 
-function saveEmpl(){
-     setAddEmpl(
-        [...addEmpl,
-            {
-                name:value,
-                salary:money ,
-                increase:false,
-                id:4            
-                
-        }]
-     )
-     setValue('');
-     setMoney();
+const[userInput,setUserInput] = useState('');
+
+const handleSubmit=(e)=>{
+   e.preventDefault()
+   saveEmpl(userInput)
+   setUserInput('');
+}
+
+const handleChange =(e)=>{
+      setUserInput(e.target.value)
 
 }
 
-   
+const handleKeyPress =(e)=>{
+      if(e.key ==="Enter"){
+        handleSubmit(e)
+      }
+}
+
+
+  
     return (
         <div className="app-add-form">
             <h3>Добавьте нового сотрудника</h3>
-            <form
-                className="add-form d-flex">
+            <form onSubmit={handleSubmit}
+                  className="add-form d-flex">
+
                 <input type="text"
-                    className="form-control new-post-label"
-                    placeholder="Как его зовут?"
-                    value={value}
-                    onChange ={(e)=>setValue(e.target.value)} />
-                <input type="number"
-                    className="form-control new-post-label"
-                    placeholder="З/П в $?"
-                    value={money}
-                    onChange ={(e)=>setMoney(e.target.value)} />
+                       className="form-control new-post-label"
+                       placeholder="Как его зовут?"
+                       value={userInput}
+                       onChange ={handleChange}
+                       onKeyDown={handleKeyPress} />
+
+                {/* <input type="number"
+                       className="form-control new-post-label"
+                       placeholder="З/П в $?"
+                       value={money}
+                       onChange ={(e)=>setMoney(e.target.value)} /> */}
 
                 <button type="submit"
-                        className="btn btn-outline-light"
-                        onClick={saveEmpl}>Добавить</button>
+                        className="btn btn-outline-light" >Добавить</button>
             </form>
         </div>
     )

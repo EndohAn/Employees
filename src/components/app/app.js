@@ -6,17 +6,37 @@ import EmployeesAddForm from '../empl-add-form/empl-add-form';
 import EmployeesListItem from '../empl-list-item/empl-list-item'
 import { useState } from 'react';
 import './app.css';
+import { v4 as uuidv4 } from 'uuid';
 
 function App() {
-  const [addEmpl,setAddEmpl]=useState([
 
+  const [addEmpl,setAddEmpl] = useState (
+    [
     {name:"John Smith",salary:800 ,increase:false,id:1},
     {name:"Alex Stoun",salary:1000 ,increase:true,id:2},
     {name:"Phill Jackson",salary:5000 ,increase:false,id:3}
-  ]);
-// const data =[
+  ]
+  );
 
-// ]
+function saveEmpl(userInput,setUserInput){
+  if(userInput){
+      const newItem={
+              name:userInput,
+              // salary:money ,
+              increase:false,
+              id: uuidv4()  
+      }
+      setAddEmpl([...addEmpl,newItem])
+  }
+ 
+  // setMoney();
+}
+
+
+function deleteEmpl(id){
+  let newEmpl=[...addEmpl.filter((item) => item.id!==id)]
+  setAddEmpl(newEmpl);
+}
 
   return (
     <div className="app">
@@ -26,11 +46,19 @@ function App() {
             <SearchPanel/>
             <AppFilter/>
         </div>
-        
-        {/* <EmployeesList data={data} addEmpl={addEmpl} setAddEmpl={setAddEmpl}/> */}
-        <EmployeesListItem  addEmpl={addEmpl} setAddEmpl={setAddEmpl}/>
-         {/* в пропс data  передаем массив данных {data} */}
-        <EmployeesAddForm addEmpl={addEmpl} setAddEmpl={setAddEmpl}/>
+
+        <EmployeesAddForm saveEmpl={saveEmpl} />   
+
+        {addEmpl.map((item) => {
+          return (
+               <EmployeesListItem
+                item={item}
+                key = {item.id} 
+                deleteEmpl={deleteEmpl}
+          />
+          )
+
+        })}
     </div>
   );
 }
