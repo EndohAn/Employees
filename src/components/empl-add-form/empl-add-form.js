@@ -4,7 +4,9 @@ import React, { useState } from 'react';
 const EmployeesAddForm = ({saveEmpl}) => {
 
 
-const[userInput,setUserInput] = useState('');
+const[userInput,setUserInput] = useState('') ;
+
+const {name,salary}=userInput;
 
 const handleSubmit=(e)=>{
    e.preventDefault()
@@ -34,15 +36,17 @@ const handleKeyPress =(e)=>{
                 <input type="text"
                        className="form-control new-post-label"
                        placeholder="Как его зовут?"
-                       value={userInput}
+                       value={userInput.name}
+                       name='name'
                        onChange ={handleChange}
                        onKeyDown={handleKeyPress} />
 
-                {/* <input type="number"
+                 <input type="number"
                        className="form-control new-post-label"
                        placeholder="З/П в $?"
-                       value={money}
-                       onChange ={(e)=>setMoney(e.target.value)} /> */}
+                       value={userInput.salary}
+                       salary='salary'
+                       onChange ={handleChange} />
 
                 <button type="submit"
                         className="btn btn-outline-light" >Добавить</button>

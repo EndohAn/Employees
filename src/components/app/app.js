@@ -22,19 +22,19 @@ function saveEmpl(userInput,setUserInput){
   if(userInput){
       const newItem={
               name:userInput,
-              // salary:money ,
+              salary:userInput ,
               increase:false,
               id: uuidv4()  
       }
       setAddEmpl([...addEmpl,newItem])
   }
  
-  // setMoney();
+  
 }
 
 
 function deleteEmpl(id){
-  let newEmpl=[...addEmpl.filter((item) => item.id!==id)]
+  let newEmpl  =[...addEmpl.filter((item) => item.id!==id)]
   setAddEmpl(newEmpl);
 }
 
