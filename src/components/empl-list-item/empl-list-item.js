@@ -1,57 +1,58 @@
-import './empl-list-item.css';
+// import './empl-list-item.css';
 
-const EmployeesListItem = ({item,deleteEmpl}) => {
+// const EmployeesListItem = ({item,deleteEmpl}) => {
     
 
-    // function deleteEmpl(id){
-    //     let newEmpl=[...addEmpl.filter((item) => item.id!==id)]
-    //     setAddEmpl(newEmpl);
-    // }
+//     // function deleteEmpl(id){
+//     //     let newEmpl=[...addEmpl.filter((item) => item.id!==id)]
+//     //     setAddEmpl(newEmpl);
+//     // }
 
 
-    // function addIncrease(id){
-    //     let newEmpl=[...addEmpl.filter((item) =>{
-    //        if(item.id ===id) {
-    //         item.increase=!item.increase
-    //        }
-    //     })]
-    //     setAddEmpl(newEmpl);
-    // }
+//     // function addIncrease(id){
+//     //     let newEmpl=[...addEmpl.filter((item) =>{
+//     //        if(item.id ===id) {
+//     //         item.increase=!item.increase
+//     //        }
+//     //     })]
+//     //     setAddEmpl(newEmpl);
+//     // }
 
-    // let classNames="list-group-item d-flex justify-content-between";
 
-    // чтобы выделить другим цветом
-    // if(increase){
-    //     classNames +=" increase";
-    // }
+import './empl-list-item.css';
+
+const EmployeesListItem = (props) => {
+
+    const {name, salary, onDelete, onToggleProp, increase, rise} = props;
+
+    let classNames = "list-group-item d-flex justify-content-between";
+    if (increase) {
+        classNames += ' increase';
+    }
+    if (rise) {
+        classNames += ' like';
+    }
+
     return (
-        <div key={item.id} >
-        <ul className="app-list list-group"  >
+        <li className={classNames}>
+            <span className="list-group-item-label" onClick={onToggleProp} data-toggle="rise">{name}</span>
+            <input type="text" className="list-group-item-input" defaultValue={salary + '$'}/>
+            <div className='d-flex justify-content-center align-items-center'>
+                <button type="button"
+                    className="btn-cookie btn-sm "
+                    onClick={onToggleProp}
+                    data-toggle="increase">
+                    <i className="fas fa-cookie"></i>
+                </button>
 
-            
-           {/* <li className={classNames} > */}
-           <li >
-           
-              <span className="list-group-item-label">{item.name}</span>
-              <input type="text" className="list-group-item-input" defaultValue={item.salary +'$'}/>
-              <div className='d-flex justify-content-center align-items-center'>
-                  {/* <button  onClick ={()=>addIncrease(item.increase)}
-                           type="button"
-                           className="btn-cookie btn-sm ">
-                           <i className="fas fa-cookie"></i>
-                  </button> */}
-
-                  <button onClick ={() => deleteEmpl(item.id)}  type="button"
-                          className="btn-trash btn-sm ">
-                          <i className="fas fa-trash"></i>
-                  </button>
-
-                  <i className="fas fa-star"></i>
-              </div>             
-        
-           </li>
-        </ul>
-        </div>
+                <button type="button"
+                        className="btn-trash btn-sm "
+                        onClick={onDelete}>
+                    <i className="fas fa-trash"></i>
+                </button>
+                <i className="fas fa-star"></i>
+            </div>
+        </li>
     )
 }
 

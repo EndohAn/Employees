@@ -1,58 +1,57 @@
-import './empl-add-form.css';
+
 import React, { useState } from 'react';
-
-const EmployeesAddForm = ({saveEmpl}) => {
-
-
-const[userInput,setUserInput] = useState('') ;
-
-const {name,salary}=userInput;
-
-const handleSubmit=(e)=>{
-   e.preventDefault()
-   saveEmpl(userInput)
-   setUserInput('');
-}
-
-const handleChange =(e)=>{
-      setUserInput(e.target.value)
-
-}
-
-const handleKeyPress =(e)=>{
-      if(e.key ==="Enter"){
-        handleSubmit(e)
-      }
-}
+import './empl-add-form.css';
 
 
-  
-    return (
+
+const EmployeesAddForm = ({ onAdd }) => {
+      const [name, setName] = useState('');
+      const [salary, setSalary] = useState('');
+    
+      const onValueChange = (e) => {
+        if (e.target.name === 'name') {
+          setName(e.target.value);
+        } else if (e.target.name === 'salary') {
+          setSalary(e.target.value);
+        }
+      };
+    
+      const onSubmit = (e) => {
+        e.preventDefault();
+        if (name.length < 3 || !salary) return;
+        onAdd(name, salary);
+        setName('');
+        setSalary('');
+      };
+    
+      return (
         <div className="app-add-form">
-            <h3>Добавьте нового сотрудника</h3>
-            <form onSubmit={handleSubmit}
-                  className="add-form d-flex">
-
-                <input type="text"
-                       className="form-control new-post-label"
-                       placeholder="Как его зовут?"
-                       value={userInput.name}
-                       name='name'
-                       onChange ={handleChange}
-                       onKeyDown={handleKeyPress} />
-
-                 <input type="number"
-                       className="form-control new-post-label"
-                       placeholder="З/П в $?"
-                       value={userInput.salary}
-                       salary='salary'
-                       onChange ={handleChange} />
-
-                <button type="submit"
-                        className="btn btn-outline-light" >Добавить</button>
-            </form>
+          <h3>Добавьте нового сотрудника</h3>
+          <form className="add-form d-flex" onSubmit={onSubmit}>
+            <input
+              type="text"
+              className="form-control new-post-label"
+              placeholder="Как его зовут?"
+              name="name"
+              value={name}
+              onChange={onValueChange}
+            />
+            <input
+              type="number"
+              className="form-control new-post-label"
+              placeholder="З/П в $?"
+              name="salary"
+              value={salary}
+              onChange={onValueChange}
+            />
+    
+            <button type="submit" className="btn btn-outline-light">
+              Добавить
+            </button>
+          </form>
         </div>
-    )
-}
+      );
+    };
+    
 
 export default EmployeesAddForm;
