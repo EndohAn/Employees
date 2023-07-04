@@ -1,6 +1,6 @@
 
 
-import React, { useState,useRef } from 'react';
+import React, { useState } from 'react';
 import AppInfo from '../app-info/app-info';
 import SearchPanel from '../search-panel/search-panel';
 import AppFilter from '../app-filter/app-filter';
@@ -18,7 +18,7 @@ const App = () => {
 
   const [term, setTerm] = useState('');
   const [filter, setFilter] = useState('all');
-  const maxId = useRef(4);
+  // const maxId = useRef(4);
 
   const deleteItem = (id) => {
     setData((prevData) => prevData.filter((item) => item.id !== id));
